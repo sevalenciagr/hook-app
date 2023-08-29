@@ -1,24 +1,16 @@
-import { useEffect, useState } from "react"
-import { Message } from "./Message";
+import { useEffect } from "react"
+import { useForm } from "../hooks/useForm";
 
 
+export const FormWitchCustomHook = () => {
 
-export const SimpleForm = () => {
+    const { formState, onInputChange, onResetForm, username, email, password } = useForm ({
+        username: '',
+        email: '',
+        password: '',
+    });
 
-    const [formState, setFormState] = useState({
-        username: 'sevalenciagr',
-        email: 'sevalenciagr@gmail.com',
-    })
-
-    const { username, email } = formState;
-
-    const onInputChange = ({ target }) => {
-        const { name, value } = target;
-        setFormState({
-            ...formState,
-            [ name ]: value
-        })
-    }
+    // const { username, email, password } = formState;
 
 
     useEffect(() => {
@@ -37,7 +29,7 @@ export const SimpleForm = () => {
 
   return (
     <>
-        <h1>Simple Form</h1>
+        <h1>Form with custom Hook</h1>
         <hr />
 
         <input 
@@ -51,15 +43,23 @@ export const SimpleForm = () => {
         <input 
             type="email"
             className="form-control mt-2"
-            placeholder="sevalenciagr@gmail.com"
+            placeholder="example@gmail.com"
             name="email"    
             value={ email }
             onChange={ onInputChange }
         />
+        <input 
+            type="password"
+            className="form-control mt-2"
+            placeholder="Password"
+            name="password"    
+            value={ password }
+            onChange={ onInputChange }
+        />
 
-        {
-            (username === 'sevalenciagr' && <Message />)
-        }
+        <button onClick={ onResetForm } className="btn btn-primary mt-2">Reset</button>
+
+        
         
     </>
   )
